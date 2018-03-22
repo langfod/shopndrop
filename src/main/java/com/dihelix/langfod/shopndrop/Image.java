@@ -6,6 +6,14 @@ public class Image {
 	private Long id;
 	private String name;
 	private String url;
+	private String urlThumb;
+
+	String getUrlThumb() {
+		return urlThumb;
+	}
+	void setUrlThumb(String urlThumb) {
+		this.urlThumb = urlThumb;
+	}
 	Image(){}
 	public Image(String url) {
 		this.url = url;
@@ -14,6 +22,14 @@ public class Image {
 		this.name = name;
 		this.url = url;
 		this.caption = caption;
+	}
+	
+	public Image(String name, String url, String caption, String urlThumb) {
+		this.name = name;
+		this.url = url;
+		this.caption = caption;
+		this.urlThumb = urlThumb;
+
 	}
 	String getCaption() {
 		return caption;
