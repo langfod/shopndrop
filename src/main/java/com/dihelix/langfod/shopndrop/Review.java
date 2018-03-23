@@ -1,14 +1,18 @@
 package com.dihelix.langfod.shopndrop;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Review {
-
 
 	@Id
 	@GeneratedValue
@@ -17,10 +21,12 @@ public class Review {
 	private String content;
 	private LocalDateTime postDate;
 	private String userName;
+	@JsonIgnore
+	@ManyToMany(mappedBy="reviews") Set<Product> products = new HashSet<>();
 
+	public Review() {
+	}
 
-	public Review() {}
-	
 	public Review(String title, String content, String userName) {
 		this.title = title;
 		this.content = content;
@@ -28,28 +34,23 @@ public class Review {
 		this.postDate = LocalDateTime.now();
 	}
 
-
-	Long getId() {
+	public Long getId() {
 		return id;
 	}
 
-
-	String getCommentTitle() {
+	public String getCommentTitle() {
 		return title;
 	}
 
-
-	String getCommentContent() {
+	public String getCommentContent() {
 		return content;
 	}
 
-
-	LocalDateTime getCommentDate() {
+	public LocalDateTime getCommentDate() {
 		return postDate;
 	}
 
-
-	String getUserName() {
+	public String getUserName() {
 		return userName;
 	}
 }

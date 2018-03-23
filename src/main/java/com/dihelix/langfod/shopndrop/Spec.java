@@ -1,18 +1,17 @@
 package com.dihelix.langfod.shopndrop;
 
-import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Spec implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4760143664696139550L;
+public class Spec {
 
 	@Id
 	@GeneratedValue
@@ -21,22 +20,27 @@ public class Spec implements Serializable {
 	private String content;
 	private String title;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "spec")
+	Set<Product> products = new HashSet<>();
+
 	public Spec() {
 	}
+
 	public Spec(String title, String content) {
 		this.title = title;
 		this.content = content;
 	}
 
-	String getContent() {
+	public String getContent() {
 		return content;
 	}
 
-	Long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	String getTitle() {
+	public String getTitle() {
 		return title;
 	}
 

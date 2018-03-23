@@ -1,96 +1,122 @@
 package com.dihelix.langfod.shopndrop;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-import javax.persistence.ElementCollection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+import org.springframework.hateoas.ResourceSupport;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 @Entity
-public class Product {
-	
+public class Product  {
+
 	@Id
 	@GeneratedValue
 	private Long id;
 
 	private String description;
-	
-    @ElementCollection(targetClass=Image.class)
-	private List<Image> images = new ArrayList<Image>();
+
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private Set<Image> images = new LinkedHashSet<Image>();
 	private String name;
 	private BigDecimal price;
-	
-    @ElementCollection(targetClass=Review.class)
-	private List<Review> reviews = new ArrayList<Review>();
-    
+
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private Set<Review> reviews = new LinkedHashSet<Review>();
+
 	private String sku;
-	
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Spec spec;
-	
+
 	Product() {
-		
+
 	}
-	
+
 	public Product(String sku, String name) {
 		this.sku = sku;
 		this.name = name;
 	}
-	
+
 	public Product(String sku, String name, String description, BigDecimal price) {
 		this.sku = sku;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 	}
-	
-	public void addImage(Image image) {
+
+	public Product addImage(Image image) {
 		images.add(image);
+		image.products.add(this);
+		return this;
 	}
-	String getDescription() {
+
+	public String getDescription() {
 		return description;
 	}
-	Long getId() {
+
+	public Long getId() {
 		return id;
 	}
-	List<Image> getImages() {
+
+	public Set<Image> getImages() {
 		return images;
 	}
-	String getName() {
+
+	public String getName() {
 		return name;
 	}
-	BigDecimal getPrice() {
+
+	public BigDecimal getPrice() {
 		return price;
 	}
-	List<Review> getReviews() {
+
+	public Set<Review> getReviews() {
 		return reviews;
 	}
-	String getSku() {
+
+	public String getSku() {
 		return sku;
 	}
-	Spec getSpec() {
+
+	public Spec getSpec() {
 		return spec;
 	}
+
 	void setDescription(String description) {
 		this.description = description;
 	}
-	void setImages(List<Image> images) {
-		this.images = images;
-	}
+
 	void setName(String name) {
 		this.name = name;
 	}
+
 	void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	void setReviews(List<Review> reviews) {
-		this.reviews = reviews;
-	}
+
 	void setSpec(Spec spec) {
 		this.spec = spec;
 	}
-	
-	
+
+	public Product addSpec(Spec spec) {
+		this.spec = spec;
+		spec.products.add(this);
+		return this;
+	}
+
+	public Product addReview(Review review) {
+		reviews.add(review);
+		review.products.add(this);
+		return this;
+	}
+
 }
