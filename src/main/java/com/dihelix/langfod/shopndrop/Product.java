@@ -1,17 +1,33 @@
 package com.dihelix.langfod.shopndrop;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Product {
+	
+	@Id
+	@GeneratedValue
+	private Long id;
 
 	private String description;
-	private Long id;
-	private List<Image> images;
+	
+    @ElementCollection(targetClass=Image.class)
+	private List<Image> images = new ArrayList<Image>();
 	private String name;
 	private BigDecimal price;
-	private List<Review> reviews;
+	
+    @ElementCollection(targetClass=Review.class)
+	private List<Review> reviews = new ArrayList<Review>();
+    
 	private String sku;
+	
 	private Spec spec;
 	
 	Product() {
@@ -23,7 +39,16 @@ public class Product {
 		this.name = name;
 	}
 	
+	public Product(String sku, String name, String description, BigDecimal price) {
+		this.sku = sku;
+		this.name = name;
+		this.description = description;
+		this.price = price;
+	}
 	
+	public void addImage(Image image) {
+		images.add(image);
+	}
 	String getDescription() {
 		return description;
 	}

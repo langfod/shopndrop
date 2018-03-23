@@ -1,9 +1,16 @@
 package com.dihelix.langfod.shopndrop;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Image {
 
-	private String caption;
+	@Id
+	@GeneratedValue
 	private Long id;
+	private String caption;
 	private String name;
 	private String url;
 	private String urlThumb;

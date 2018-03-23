@@ -1,12 +1,27 @@
 package com.dihelix.langfod.shopndrop;
 
-public class Spec {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class Spec implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4760143664696139550L;
+
+	@Id
+	@GeneratedValue
+	private Long id;
 
 	private String content;
-	private Long id;
 	private String title;
 
-	Spec() {
+	public Spec() {
 	}
 	public Spec(String title, String content) {
 		this.title = title;
