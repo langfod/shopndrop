@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<aside th:fragment="cartItems" th:id="|C-${cart.id}|"  class="cart-items" xmlns:th="http://www.thymeleaf.org">
+
+<div th:each="cartItem: ${#lists.sort(cart.cartItems, priceComp)}">
+<p th:text="${cartItem.product.name}"/>
+<p th:text="| ${cartItem.quantity} @ ${cartItem.price} = ${cartItem.extendedPrice}" />
+<button th:attr="data-cartItemId=${cartItem.Id}" th:id="|Subtract-${cartItem.Id}|" >&mdash;</button>
+</div>
+<hr>
+<hr>
+<p th:text="${#lists.isEmpty(cart.cartItems)} ?  'Cart Empty' : ${cart.totalPrice}"><p/>
+</aside>
+
+</html>
+

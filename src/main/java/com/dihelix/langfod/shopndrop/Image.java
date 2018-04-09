@@ -10,7 +10,7 @@ import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
+//@Entity
 public class Image {
 
 	@Id
@@ -25,7 +25,7 @@ public class Image {
 	@ManyToMany(mappedBy="images")
 	Set<Product> products = new HashSet<>();
 
-	String getUrlThumb() {
+	public String getUrlThumb() {
 		return urlThumb;
 	}
 

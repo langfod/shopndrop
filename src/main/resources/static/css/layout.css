@@ -1,0 +1,30 @@
+*, *:before, *:after {
+	box-sizing: border-box;
+	margin: 0;
+	border: 1px solid red;
+}
+
+body {
+	overflow:hidden;
+}
+
+main>header	 {grid-area: header;}
+main>#products {grid-area: prod;}
+main>aside {grid-area:sidebar;}
+main {
+	grid-template-areas: 
+	  "header header"
+      "prod sidebar" ;
+      
+	display: grid;
+	grid-gap: 5px;
+	grid-template-columns: auto 12rem;
+	grid-template-rows: 4rem auto ;
+	height: 100vh;
+	overflow:hidden;
+}
+
+#products>.product {
+	display: flex;
+	flex-direction: row;
+}
